@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: appserver-deployment
+  name: appserver-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: appserver-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: appserver-deployment
+    spec:
+      containers:
+      - image: httpd:alpine
+        name: httpd
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: 256Mi
+          requests:
+            cpu: 0.25
+            memory: 128Mi
